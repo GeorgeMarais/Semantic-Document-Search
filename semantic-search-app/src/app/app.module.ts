@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { EnvironmentInjector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,7 +21,13 @@ import { DocumentSearchComponent } from './components/document-search-component/
     AppRoutingModule
   ],
   providers: [
-    provideFirebaseApp(() => initializeApp({"projectId":"sem-search007","appId":"1:231921245050:web:9acc3e6276e474ec6894c3","storageBucket":"sem-search007.appspot.com","apiKey":"AIzaSyB-IWJJzeGiSV-L0r1wUDsQYDGUY_9NNgo","authDomain":"sem-search007.firebaseapp.com","messagingSenderId":"231921245050"})),
+    provideFirebaseApp(() => initializeApp({
+      "projectId":`${process.env['FIREBASE_PROJECT_ID']}`,
+      "appId":`${process.env['FIREBASE_APP_ID']}`,
+      "storageBucket":`${process.env['STORAGE_BUCKET']}`,
+      "apiKey":`${process.env['FIREBASE_API_KEY']}`,
+      "authDomain":`${process.env['AUTH_DOMAIN']}`,
+      "messagingSenderId":`${process.env['MESSAGING_SENDER_ID']}`})),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     provideVertexAI(() => getVertexAI())
